@@ -135,17 +135,16 @@ class IL_Exp:
             if self.learn_dx:
                 if self.env_name == 'pendulum':
                     self.env_params = torch.tensor(
-                        (15., 3., 0.5), requires_grad=True)
+                        (15., 3., 0.5))
                 elif self.env_name == 'cartpole':
                     self.env_params = torch.tensor(
-                        (9.8, 3.0, 0.1, 1.0), requires_grad=True)
+                        (9.8, 3.0, 0.1, 1.0))
                 elif self.env_name == 'pendulum-complex':
                     # self.env_params = torch.tensor(
-                    #     (15., 3., 0.5), requires_grad=True)
+                    #     (15., 3., 0.5))
                     torch.manual_seed(self.seed)
                     self.env_params = torch.tensor((5., 1., 1.)) + \
                         torch.tensor((3., 1., 1.))*(torch.rand(3)-0.5)
-                    self.env_params.requires_grad_()
 
                     # n_hidden = 256
                     # self.extra_dx = NNDynamics(
@@ -155,6 +154,7 @@ class IL_Exp:
             else:
                 self.env_params = self.env.true_dx.params
             self.env_params = self.env_params.to(self.device)
+            self.env_params.requires_grad_()
         else:
             assert False
 
